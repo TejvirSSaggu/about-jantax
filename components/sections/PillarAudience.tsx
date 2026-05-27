@@ -4,12 +4,12 @@ import { useRef } from "react";
 import { useInView } from "framer-motion";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 
-const EVENTS = [
-  { title: "Bhangra Night", venue: "REX THEATRE", price: "$30" },
-  { title: "Sunset Soiree", venue: "ROOFTOP 401", price: "$45" },
-  { title: "Comedy Underground", venue: "BACKROOM", price: "$20" },
-  { title: "Diwali Bash", venue: "MARQUEE HALL", price: "$55" },
-  { title: "Bollywood Brunch", venue: "PALMS BISTRO", price: "$25" },
+const DEALS = [
+  { title: "15% off Diwali jewelry", venue: "SHANTI JEWELERS", price: "—" },
+  { title: "BOGO weekday lunch", venue: "BHARAT BISTRO", price: "—" },
+  { title: "Free henna w/ bridal", venue: "GLOW SALON", price: "—" },
+  { title: "20% off party rentals", venue: "DESI RENTALS", price: "—" },
+  { title: "Buy 2 get 1 sweets", venue: "MISTHI BOX", price: "—" },
 ];
 
 export function PillarAudience() {
@@ -21,9 +21,9 @@ export function PillarAudience() {
       <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_0.85fr] gap-16 items-center">
         <div>
           <SectionHeader
-            eyebrow="Built-in audience"
-            title={<><em className="italic text-pink">Don&apos;t</em> start<br/>from zero.</>}
-            sub="JantaX already brings thousands of locals looking for their next night out — through search, categories, deals, and a social feed. Your event lands in front of them on day one."
+            eyebrow="Channel · Deals"
+            title={<>Turn the community into <em className="italic text-pink">walk-ins</em>.</>}
+            sub="Run targeted promotions for your restaurant, salon, jeweler, or any business — surfaced to JantaX users in your neighborhood. New customers, no Yelp fees."
           />
         </div>
 
@@ -40,14 +40,14 @@ export function PillarAudience() {
                   animation: inView ? "scroll-feed 18s linear infinite" : "none",
                 }}
               >
-                {[...EVENTS, ...EVENTS].map((e, i) => (
+                {[...DEALS, ...DEALS].map((d, i) => (
                   <div key={i} className="rounded-2xl bg-deep/60 border border-white/5 p-3 flex gap-3">
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-pink to-[#7a2470] shrink-0" />
                     <div className="flex-1">
-                      <div className="text-white text-xs font-semibold">{e.title}</div>
-                      <div className="font-mono text-[8px] uppercase text-white/45 mt-1">{e.venue}</div>
+                      <div className="text-white text-xs font-semibold">{d.title}</div>
+                      <div className="font-mono text-[8px] uppercase text-white/45 mt-1">{d.venue}</div>
                     </div>
-                    <div className="text-pink text-xs font-semibold self-center">{e.price}</div>
+                    <span className="text-pink font-mono text-[9px] uppercase tracking-wider self-center bg-pink/15 px-2 py-0.5 rounded-full">DEAL</span>
                   </div>
                 ))}
               </div>

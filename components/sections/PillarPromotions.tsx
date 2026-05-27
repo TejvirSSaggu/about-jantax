@@ -5,13 +5,13 @@ import { useInView, motion } from "framer-motion";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 
 const NODES = [
-  { x: 50,  y: 20, label: "Bar Verde", type: "Restaurant" },
-  { x: 80,  y: 30, label: "GoldStreet", type: "Bar" },
-  { x: 85,  y: 60, label: "Glow Salon", type: "Beauty" },
-  { x: 65,  y: 85, label: "Rideshare 25% off", type: "Transport" },
-  { x: 25,  y: 85, label: "Late-night eats", type: "Food" },
-  { x: 12,  y: 55, label: "DJ rentals", type: "Vendor" },
-  { x: 20,  y: 25, label: "Brunch spots", type: "Restaurant" },
+  { x: 50,  y: 20, label: "Events you host",        type: "Channel" },
+  { x: 80,  y: 30, label: "Deals you run",          type: "Channel" },
+  { x: 85,  y: 60, label: "Business profile",       type: "Channel" },
+  { x: 65,  y: 85, label: "Rentals (v2)",           type: "Channel" },
+  { x: 25,  y: 85, label: "Festival-goers",         type: "Community" },
+  { x: 12,  y: 55, label: "Diaspora families",      type: "Community" },
+  { x: 20,  y: 25, label: "Bay Area locals",        type: "Community" },
 ];
 
 export function PillarPromotions() {
@@ -22,9 +22,9 @@ export function PillarPromotions() {
     <section className="py-32 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
-          eyebrow="Deals network"
-          title={<>Your event is the anchor.<br/>The <em className="italic text-pink">neighborhood</em> is the amplifier.</>}
-          sub="Local restaurants, bars, vendors, and rideshares will cross-promote with your event. Their deals send traffic your way. You send traffic theirs. Everyone wins."
+          eyebrow="All channels, one community"
+          title={<>The whole community<br/>in <em className="italic text-pink">one app</em>.</>}
+          sub="Every business on JantaX gets all the channels — events, deals, business profiles — feeding into the same hyperlocal South Asian audience. Cross-promotion is built in by default."
         />
 
         <div ref={ref} className="relative bg-deep/20 border border-white/5 rounded-2xl aspect-[16/9] overflow-hidden">
@@ -48,11 +48,11 @@ export function PillarPromotions() {
             </defs>
           </svg>
 
-          {/* center: event */}
+          {/* center: business */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <div className="bg-gradient-to-br from-pink to-[#c44d9a] text-white rounded-2xl px-5 py-4 shadow-2xl shadow-pink/30">
-              <div className="font-mono text-[9px] uppercase tracking-[0.18em] opacity-80">Your event</div>
-              <div className="text-sm font-semibold mt-1">Bhangra Night</div>
+              <div className="font-mono text-[9px] uppercase tracking-[0.18em] opacity-80">On JantaX</div>
+              <div className="text-sm font-semibold mt-1">Your business</div>
             </div>
           </div>
 

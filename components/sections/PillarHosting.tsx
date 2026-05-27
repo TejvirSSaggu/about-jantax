@@ -3,10 +3,10 @@ import { SectionHeader } from "@/components/sections/SectionHeader";
 import { Calendar, Ticket, ScanLine, Banknote } from "lucide-react";
 
 const TILES = [
-  { icon: Calendar, title: "Create event", body: "Title, date, venue, multiple ticket types, images. 90 seconds." },
-  { icon: Ticket, title: "Sell tickets", body: "Stripe checkout, VIP/GA/early-bird, free RSVP — all built in." },
-  { icon: ScanLine, title: "Check in at the door", body: "Scan QR e-tickets from your phone. No extra hardware." },
-  { icon: Banknote, title: "Get paid", body: "Stripe Connect payouts to your bank — automatic." },
+  { icon: Calendar, title: "Create event", body: "Title, date, venue, ticket types. 90 seconds." },
+  { icon: Ticket, title: "Sell tickets", body: "Stripe checkout, VIP/GA/early-bird, free RSVP." },
+  { icon: ScanLine, title: "Check in at the door", body: "Scan QR e-tickets from your phone." },
+  { icon: Banknote, title: "Get paid", body: "Stripe Connect payouts to your bank." },
 ];
 
 export function PillarHosting() {
@@ -14,9 +14,9 @@ export function PillarHosting() {
     <section id="features" className="py-32 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
-          eyebrow="One platform"
-          title={<>From the listing<br/>to the <em className="italic text-pink">bank account</em>.</>}
-          sub="Stop stitching Eventbrite, Stripe, Mailchimp, and a spreadsheet together. One product handles the whole arc."
+          eyebrow="Channel · Events"
+          title={<>The community&apos;s <em className="italic text-pink">calendar</em>.</>}
+          sub="List your event in front of thousands of South Asians actively looking for what&apos;s on this weekend. Tickets, RSVPs, QR check-in, payout — all in one flow."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

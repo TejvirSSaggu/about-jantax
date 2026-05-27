@@ -3,18 +3,18 @@ import { FadeUp } from "@/components/motion/FadeUp";
 const PANELS = [
   {
     label: "01 · THE SHIFT",
-    title: "Local discovery moved on.",
-    body: "Eventbrite and Facebook Events were built for a different internet. The next generation finds their plans in social, hyperlocal apps — not in their inboxes.",
+    title: "Diaspora communities have moved online — and want their own stack.",
+    body: "The South Asian Bay Area is millions of people strong. They search for restaurants, plan weddings, attend events — but they use a fragmented mix of WhatsApp groups, Yelp, Eventbrite, Facebook events, and word-of-mouth. There’s no single place for this community.",
   },
   {
     label: "02 · THE GAP",
-    title: "Incumbents price-gouge.",
-    body: "Global ticketing takes 8–15% per ticket and gives nothing back to the organizer's audience. The economics are upside-down for the people making the events.",
+    title: "Global platforms aren’t built for community-first commerce.",
+    body: "Eventbrite, Yelp, and Groupon are general-audience tools that take 8–15% per transaction and give nothing back to local communities. South Asian businesses get lost in the noise; community members miss what’s happening around them.",
   },
   {
     label: "03 · OUR WEDGE",
-    title: "Full-stack, city-first.",
-    body: "Host, discover, transact, cross-promote — one mobile-native platform built around city scenes, not global aggregation. Organizer economics first.",
+    title: "One platform, multi-channel, city-first, organizer-economics.",
+    body: "JantaX gives a South Asian business a single home — events, deals, profile, rentals — and gives community members a single feed of what their people are doing. Organizer economics, not platform-skim economics.",
   },
 ];
 
@@ -29,7 +29,7 @@ export function WhyNow() {
         </FadeUp>
         <FadeUp delay={0.05}>
           <h2 className="font-display font-light text-3xl lg:text-4xl text-white mb-14 max-w-2xl">
-            Why this, <em className="italic text-pink">why now.</em>
+            Why this. <em className="italic text-pink">Why now.</em>
           </h2>
         </FadeUp>
         <div className="grid md:grid-cols-3 gap-8">

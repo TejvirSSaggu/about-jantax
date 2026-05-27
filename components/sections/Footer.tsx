@@ -35,9 +35,12 @@ export function Footer() {
             Hyperlocal event hosting · Coming soon to San Jose
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-8 text-sm">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
           <FooterCol title="Company">
             <a href="#" className="footer-link">About</a>
+          </FooterCol>
+          <FooterCol title="Product">
+            <a href="https://jantax.com" className="footer-link">jantax.com →</a>
           </FooterCol>
           <FooterCol title="Legal">
             <a href="#" className="footer-link">Privacy</a>

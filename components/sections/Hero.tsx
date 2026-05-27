@@ -40,26 +40,24 @@ export function Hero() {
       <div className="relative max-w-7xl mx-auto grid lg:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
         {/* LEFT — copy + CTA */}
         <div>
-          <FadeUp>
-            <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-pink flex items-center gap-2 mb-5">
-              <span className="relative flex w-1.5 h-1.5">
-                <span className="absolute inset-0 rounded-full bg-pink animate-ping opacity-75" />
-                <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-pink shadow-[0_0_8px_var(--color-pink)]" />
-              </span>
-              Coming soon · San Jose
-            </div>
-          </FadeUp>
+          {/* Eyebrow — no motion wrapper so it paints immediately (LCP-critical path) */}
+          <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-pink flex items-center gap-2 mb-5">
+            <span className="relative flex w-1.5 h-1.5">
+              <span className="absolute inset-0 rounded-full bg-pink animate-ping opacity-75" />
+              <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-pink shadow-[0_0_8px_var(--color-pink)]" />
+            </span>
+            Coming soon · San Jose
+          </div>
 
-          <FadeUp delay={0.1}>
-            <h1 className="font-display font-light text-5xl lg:text-7xl leading-[0.95] tracking-tight text-white mb-4">
-              A new way to
-              <br />
-              host{" "}
-              <em className="italic bg-gradient-to-br from-pink to-rose bg-clip-text text-transparent">
-                events.
-              </em>
-            </h1>
-          </FadeUp>
+          {/* H1 — no motion wrapper so LCP text paints without waiting for framer-motion */}
+          <h1 className="font-display font-light text-5xl lg:text-7xl leading-[0.95] tracking-tight text-white mb-4">
+            A new way to
+            <br />
+            host{" "}
+            <em className="italic bg-gradient-to-br from-pink to-rose bg-clip-text text-transparent">
+              events.
+            </em>
+          </h1>
 
           <FadeUp delay={0.2}>
             <p className="text-white/60 text-base leading-relaxed max-w-md mb-7">

@@ -73,6 +73,7 @@ export function Hero() {
             <div className="flex flex-wrap items-center gap-3">
               <form
                 onSubmit={onSubmit}
+                noValidate
                 className="flex items-center bg-white/5 border border-white/10 rounded-full p-1.5 pl-5 max-w-md flex-1 min-w-[280px]"
               >
                 <Input

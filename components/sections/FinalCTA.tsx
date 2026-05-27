@@ -46,7 +46,7 @@ export function FinalCTA() {
           </p>
         </FadeUp>
         <FadeUp delay={0.15}>
-          <form onSubmit={onSubmit} className="flex items-center bg-white/15 backdrop-blur-md border border-white/25 rounded-full p-1.5 pl-5 max-w-md mx-auto">
+          <form onSubmit={onSubmit} noValidate className="flex items-center bg-white/15 backdrop-blur-md border border-white/25 rounded-full p-1.5 pl-5 max-w-md mx-auto">
             <Input
               type="email"
               value={email}

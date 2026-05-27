@@ -59,7 +59,7 @@ export function FoundersDialog({
             <p className="text-white">Message sent. We&apos;ll be in touch soon.</p>
           </div>
         ) : (
-          <form onSubmit={onSubmit} className="space-y-3 mt-2">
+          <form onSubmit={onSubmit} noValidate className="space-y-3 mt-2">
             <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" required disabled={status === "loading"} className="bg-white/5 border-white/10" />
             <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Your email" required disabled={status === "loading"} className="bg-white/5 border-white/10" />
             <Textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="What's on your mind?" rows={5} required disabled={status === "loading"} className="bg-white/5 border-white/10" />

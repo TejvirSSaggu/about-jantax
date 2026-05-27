@@ -27,13 +27,22 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JantaX — Sell out your next event.",
+  metadataBase: new URL("https://about.jantax.com"),
+  title: "JantaX — The platform South Asian businesses don't have yet.",
   description:
-    "Create the listing, sell the tickets, check people in at the door, and get paid — one platform built for the people running real events in your city.",
+    "We're building one platform where the South Asian business community in your city can reach its customers — through events, deals, business profiles, and more. Coming soon to San Jose.",
   openGraph: {
-    title: "JantaX — Sell out your next event.",
-    description: "End-to-end event hosting for hyperlocal organizers.",
+    title: "JantaX — The platform South Asian businesses don't have yet.",
+    description: "Multi-channel platform for the South Asian business community. Events, deals, business profiles, rentals. Coming soon to San Jose.",
+    url: "https://about.jantax.com",
+    siteName: "JantaX",
     images: ["/og-image.png"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "JantaX — The platform South Asian businesses don't have yet.",
+    description: "Multi-channel platform for the South Asian business community. Coming soon to San Jose.",
   },
 };
 

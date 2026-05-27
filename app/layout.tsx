@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Raleway, JetBrains_Mono, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { LenisProvider } from "@/components/motion/LenisProvider";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={cn(cormorant.variable, raleway.variable, mono.variable, "font-sans", geist.variable)}>
-      <body className="bg-ink text-white font-body antialiased">{children}</body>
+      <body className="bg-ink text-white font-body antialiased"><LenisProvider>{children}</LenisProvider></body>
     </html>
   );
 }

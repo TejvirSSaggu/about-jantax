@@ -2,14 +2,16 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CreateEventCard } from "@/components/bento/CreateEventCard";
-import { TicketTypesCard } from "@/components/bento/TicketTypesCard";
-import { ScannerCard } from "@/components/bento/ScannerCard";
+import { CityFeedCard } from "@/components/bento/CityFeedCard";
+import { DealCard } from "@/components/bento/DealCard";
+import { ChannelsCard } from "@/components/bento/ChannelsCard";
 import { FadeUp } from "@/components/motion/FadeUp";
 import { FoundersDialog } from "@/components/sections/FoundersDialog";
+import { WaitlistDialog } from "@/components/sections/WaitlistDialog";
 
 export function Hero() {
   const [foundersOpen, setFoundersOpen] = useState(false);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   return (
     <section className="relative overflow-hidden px-6 lg:px-12 pt-24 pb-20 lg:pt-32 lg:pb-28">
@@ -51,13 +53,21 @@ export function Hero() {
           </FadeUp>
 
           <FadeUp delay={0.3}>
-            <div className="flex items-center">
+            <div className="flex flex-wrap items-center gap-3">
               <Button
                 type="button"
                 onClick={() => setFoundersOpen(true)}
                 className="rounded-full bg-gradient-to-br from-pink to-[#c44d9a] hover:opacity-90 text-white text-xs font-semibold px-5"
               >
                 Talk to the founders →
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setWaitlistOpen(true)}
+                className="rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white/85 text-xs font-semibold px-5"
+              >
+                Join the waitlist
               </Button>
             </div>
           </FadeUp>
@@ -66,14 +76,15 @@ export function Hero() {
         {/* RIGHT — PREVIEW bento */}
         <FadeUp delay={0.3}>
           <div className="grid grid-cols-2 grid-rows-[1.1fr_0.8fr] gap-2">
-            <CreateEventCard />
-            <TicketTypesCard />
-            <ScannerCard />
+            <CityFeedCard />
+            <DealCard />
+            <ChannelsCard />
           </div>
         </FadeUp>
       </div>
 
       <FoundersDialog open={foundersOpen} onOpenChange={setFoundersOpen} source="hero" />
+      <WaitlistDialog open={waitlistOpen} onOpenChange={setWaitlistOpen} source="hero" />
     </section>
   );
 }

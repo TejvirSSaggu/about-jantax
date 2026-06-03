@@ -21,12 +21,13 @@ export function FinalCTA() {
         </FadeUp>
         <FadeUp delay={0.05}>
           <h2 className="font-display font-light text-4xl lg:text-6xl text-white leading-[1.02] tracking-tight mb-6">
-            Want to be part of <em className="italic">what we&apos;re building?</em>
+            Back the operating system for <em className="italic">South Asian communities.</em>
           </h2>
         </FadeUp>
         <FadeUp delay={0.1}>
-          <p className="text-white/80 text-base lg:text-lg max-w-xl mx-auto mb-8">
-            Investors, partners, fellow founders — drop us a note. We&apos;re early, we&apos;re shipping, and we&apos;d love to hear from you.
+          <p className="text-white/80 text-base lg:text-lg max-w-2xl mx-auto mb-8">
+            JantaX connects local businesses, organizers, and community members through a single
+            city-first platform. We&apos;re starting in San Jose and expanding one community at a time.
           </p>
         </FadeUp>
         <FadeUp delay={0.15}>
@@ -35,7 +36,7 @@ export function FinalCTA() {
             onClick={() => setFoundersOpen(true)}
             className="rounded-full bg-white text-ink hover:bg-white/90 text-sm font-semibold px-8 py-3 h-auto"
           >
-            Talk to the founders →
+            Talk to the Founders →
           </Button>
         </FadeUp>
       </div>

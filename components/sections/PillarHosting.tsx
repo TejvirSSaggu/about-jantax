@@ -3,10 +3,10 @@ import { SectionHeader } from "@/components/sections/SectionHeader";
 import { Calendar, Ticket, ScanLine, Banknote } from "lucide-react";
 
 const TILES = [
-  { icon: Calendar, title: "Create event", body: "Title, date, venue, ticket types. 90 seconds." },
-  { icon: Ticket, title: "Sell tickets", body: "Stripe checkout, VIP/GA/early-bird, free RSVP." },
-  { icon: ScanLine, title: "Check in at the door", body: "Scan QR e-tickets from your phone." },
-  { icon: Banknote, title: "Get paid", body: "Stripe Connect payouts to your bank." },
+  { icon: Calendar, title: "Publish an Event", body: "Launch your event page in minutes." },
+  { icon: Ticket, title: "Sell tickets", body: "Paid tickets, free RSVPs, VIP access, and early-bird pricing." },
+  { icon: ScanLine, title: "Fast Event Check-In", body: "Scan tickets and track attendance in real time." },
+  { icon: Banknote, title: "Get paid", body: "Secure payouts sent directly to your account." },
 ];
 
 export function PillarHosting() {
@@ -14,9 +14,9 @@ export function PillarHosting() {
     <section id="features" className="py-32 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
-          eyebrow="Channel · Events"
+          eyebrow="Events Channel"
           title={<>The community&apos;s <em className="italic text-pink">calendar</em>.</>}
-          sub="List your event in front of thousands of South Asians actively looking for what&apos;s on this weekend. Tickets, RSVPs, QR check-in, payout — all in one flow."
+          sub="Reach local South Asians looking for things to do, then manage tickets, RSVPs, check-ins, and payouts from one place."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -32,6 +32,13 @@ export function PillarHosting() {
             </FadeUp>
           ))}
         </div>
+
+        <FadeUp delay={0.4}>
+          <p className="text-white/65 text-sm lg:text-base leading-relaxed max-w-3xl mx-auto text-center mt-10">
+            Every event is promoted across JantaX&apos;s local community feed—helping you reach the
+            people most likely to attend.
+          </p>
+        </FadeUp>
       </div>
     </section>
   );

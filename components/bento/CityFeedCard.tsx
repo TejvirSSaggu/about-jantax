@@ -26,7 +26,7 @@ export function CityFeedCard() {
     <div className="relative col-span-2 rounded-xl bg-deep/40 border border-pink/15 p-3 backdrop-blur-sm">
       <PreviewTag />
       <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50 mb-2 pr-16">
-        JantaX · your city today
+        JantaX · What&apos;s happening near you
       </div>
       <div className="space-y-1.5">
         {FEED.map((f) => (

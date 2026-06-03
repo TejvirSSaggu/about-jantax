@@ -22,9 +22,9 @@ export function PillarPromotions() {
     <section className="py-32 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
-          eyebrow="All channels, one community"
-          title={<>The whole community<br/>in <em className="italic text-pink">one app</em>.</>}
-          sub="Every business on JantaX gets all the channels — events, deals, business profiles — feeding into the same hyperlocal South Asian audience. Cross-promotion is built in by default."
+          eyebrow="One audience, every channel"
+          title={<>One audience.<br/><em className="italic text-pink">Every channel</em>.</>}
+          sub="Run events, promote offers, build your profile, and reach the same local audience from one place."
         />
 
         <div ref={ref} className="relative bg-deep/20 border border-white/5 rounded-2xl aspect-[16/9] overflow-hidden">

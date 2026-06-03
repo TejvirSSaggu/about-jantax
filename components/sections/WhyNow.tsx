@@ -2,19 +2,19 @@ import { FadeUp } from "@/components/motion/FadeUp";
 
 const PANELS = [
   {
-    label: "01 · THE SHIFT",
-    title: "Diaspora communities have moved online — and want their own stack.",
-    body: "The South Asian Bay Area is millions of people strong. They search for restaurants, plan weddings, attend events — but they use a fragmented mix of WhatsApp groups, Yelp, Eventbrite, Facebook events, and word-of-mouth. There’s no single place for this community.",
+    label: "01 · THE MARKET",
+    title: "The community exists. The platform doesn’t.",
+    body: "Millions of South Asians already gather online, organize events, discover businesses, and make purchasing decisions through fragmented tools. Yet no platform owns the community relationship.",
   },
   {
     label: "02 · THE GAP",
     title: "Global platforms aren’t built for community-first commerce.",
-    body: "Eventbrite, Yelp, and Groupon are general-audience tools that take 8–15% per transaction and give nothing back to local communities. South Asian businesses get lost in the noise; community members miss what’s happening around them.",
+    body: "Existing platforms optimize for transactions. Communities need discovery, trust, identity, and local relevance. South Asian businesses compete in crowded marketplaces instead of being connected directly to their audience.",
   },
   {
-    label: "03 · OUR WEDGE",
-    title: "One platform, multi-channel, city-first, organizer-economics.",
-    body: "JantaX gives a South Asian business a single home — events, deals, profile, rentals — and gives community members a single feed of what their people are doing. Organizer economics, not platform-skim economics.",
+    label: "03 · THE FLYWHEEL",
+    title: "One audience. Multiple revenue engines.",
+    body: "Events, deals, business profiles, rentals, and future services all connect to the same local audience. Every new channel increases engagement, retention, and monetization.",
   },
 ];
 
@@ -29,7 +29,7 @@ export function WhyNow() {
         </FadeUp>
         <FadeUp delay={0.05}>
           <h2 className="font-display font-light text-3xl lg:text-4xl text-white mb-14 max-w-2xl">
-            Why this. <em className="italic text-pink">Why now.</em>
+            Why now. <em className="italic text-pink">Why JantaX.</em>
           </h2>
         </FadeUp>
         <div className="grid md:grid-cols-3 gap-8">
@@ -43,6 +43,22 @@ export function WhyNow() {
             </FadeUp>
           ))}
         </div>
+
+        <FadeUp delay={0.3}>
+          <div className="mt-16 rounded-2xl border border-pink/20 bg-gradient-to-br from-pink/10 via-deep/20 to-transparent p-8 lg:p-10">
+            <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-pink mb-3">
+              The bridge
+            </div>
+            <p className="font-display font-light text-2xl lg:text-3xl text-white leading-tight mb-4">
+              The wedge is events. The opportunity is <em className="italic text-pink">community commerce</em>.
+            </p>
+            <p className="text-white/65 text-sm lg:text-base leading-relaxed max-w-3xl">
+              We start by helping organizers fill events. From there, businesses promote offers,
+              build profiles, sell services, rent equipment, and reach the same audience through a
+              single platform.
+            </p>
+          </div>
+        </FadeUp>
       </div>
     </section>
   );

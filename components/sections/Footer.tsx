@@ -32,7 +32,7 @@ export function Footer() {
         <div>
           <a href="#" className="font-display text-2xl text-white tracking-tight">JantaX</a>
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mt-3">
-            Hyperlocal event hosting · Coming soon to San Jose
+            Hyperlocal community platform · Launching first in San Jose
           </p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">

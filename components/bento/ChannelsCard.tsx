@@ -5,7 +5,7 @@ const CHANNELS = [
   { name: "Deals",             status: "LIVE" },
   { name: "Business profile",  status: "LIVE" },
   { name: "Rentals",           status: "V2"   },
-  { name: "Cross-promo",       status: "LIVE" },
+  { name: "Community",         status: "LIVE" },
 ];
 
 export function ChannelsCard() {

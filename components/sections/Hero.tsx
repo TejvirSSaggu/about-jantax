@@ -32,23 +32,22 @@ export function Hero() {
               <span className="absolute inset-0 rounded-full bg-pink animate-ping opacity-75" />
               <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-pink shadow-[0_0_8px_var(--color-pink)]" />
             </span>
-            Coming soon · San Jose
+            Launching first in San Jose
           </div>
 
           {/* H1 — no motion wrapper so LCP text paints without waiting for framer-motion */}
           <h1 className="font-display font-light text-5xl lg:text-7xl leading-[0.95] tracking-tight text-white mb-4">
-            The platform South Asian{" "}
+            Your city&apos;s South Asian{" "}
             <em className="italic bg-gradient-to-br from-pink to-rose bg-clip-text text-transparent">
-              businesses
-            </em>{" "}
-            don&apos;t have yet.
+              community
+            </em>
+            , all in one place.
           </h1>
 
           <FadeUp delay={0.2}>
             <p className="text-white/60 text-base leading-relaxed max-w-md mb-7">
-              We&apos;re building one platform where the South Asian business community in your city
-              can reach its customers — through events, deals, business profiles, and more. Built
-              around your city, not against it.
+              Discover local events, trusted businesses, exclusive deals, housing, and community
+              opportunities—all curated for South Asians in your city.
             </p>
           </FadeUp>
 
@@ -59,7 +58,7 @@ export function Hero() {
                 onClick={() => setFoundersOpen(true)}
                 className="rounded-full bg-gradient-to-br from-pink to-[#c44d9a] hover:opacity-90 text-white text-xs font-semibold px-5"
               >
-                Talk to the founders →
+                Get Early Access →
               </Button>
               <Button
                 type="button"

@@ -12,9 +12,9 @@ export function PillarTicketing() {
     <section className="py-32 px-6 lg:px-12 bg-gradient-to-b from-transparent via-deep/15 to-transparent">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
-          eyebrow="Channel · Rentals (coming soon)"
-          title={<>From <em className="italic text-pink">party rentals</em> to venue bookings.</>}
-          sub="A future release will open the platform to rentals — party supplies, equipment, venues, and more. Same audience, same payouts, more revenue per booking."
+          eyebrow="Rentals · Coming soon"
+          title={<>Everything the community needs to <em className="italic text-pink">celebrate</em>.</>}
+          sub="Soon, businesses will be able to rent venues, equipment, décor, and event essentials to the same community they already serve."
         />
 
         <FadeUp>
@@ -24,7 +24,7 @@ export function PillarTicketing() {
                 <span className="w-1.5 h-1.5 rounded-full bg-pink shadow-[0_0_8px_var(--color-pink)]" />
                 V2 · Roadmap
               </div>
-              <h3 className="font-display font-light text-3xl text-white leading-tight mb-3">A full rental marketplace, on the same platform.</h3>
+              <h3 className="font-display font-light text-3xl text-white leading-tight mb-3">The community marketplace is expanding.</h3>
               <p className="text-white/55 text-sm leading-relaxed">Once Events, Deals, and Business profiles are running smoothly, we&apos;ll open up rentals — your community will be able to book everything from a backyard pavilion to a chai dispenser.</p>
             </div>
           </div>

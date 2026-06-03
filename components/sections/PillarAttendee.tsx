@@ -13,7 +13,7 @@ export function PillarAttendee() {
     <section className="py-32 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
-          eyebrow="Channel · Business profile"
+          eyebrow="Business Profile Channel"
           title={<>Get <em className="italic text-pink">found</em> by your community.</>}
           sub="Your hours, location, photos, menu, reviews — a real business profile that the South Asian community in your area can discover, save, and share."
         />

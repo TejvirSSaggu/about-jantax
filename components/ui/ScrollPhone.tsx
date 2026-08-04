@@ -11,6 +11,12 @@ type Props = {
   width?: number;
   className?: string;
   priority?: boolean;
+  /**
+   * Mobile only: pin the phone to the viewport and scrub the screenshot as the
+   * page scrolls past, then release. Deliberately opt-in and used once (the
+   * hero) — repeated pinned sections read as a tunnel, not a signature moment.
+   */
+  pinOnMobile?: boolean;
 };
 
 /**
@@ -19,30 +25,43 @@ type Props = {
  * image.
  *
  * Desktop: the screen is a normal scroll container you drag with the mouse.
+ * Nothing below applies — it's all gated behind a max-width:767px media query.
  *
  * Touch: the frame is nearly full-bleed, so a finger landing on it would scroll
  * the screenshot instead of the page and the user gets stuck. There the screen
  * is overflow:hidden (see globals.css) and we drive scrollTop from the page's
- * own scroll position, revealing the app screen as the phone travels through
- * the viewport. Nothing to discover, and the page always scrolls.
+ * own scroll position instead. Two flavours:
+ *   - default: reveal as the phone travels through the viewport
+ *   - pinOnMobile: the phone sticks to the viewport for a bounded stretch and
+ *     the screenshot scrubs through, then the page carries on
  */
-export function ScrollPhone({ src, alt, height = 560, width = 264, className = "", priority = false }: Props) {
+export function ScrollPhone({
+  src,
+  alt,
+  height = 560,
+  width = 264,
+  className = "",
+  priority = false,
+  pinOnMobile = false,
+}: Props) {
   // The frame adds 10px of padding on each side, so the scroll window is
   // (width - 20) wide. Expressing its ratio against that keeps the desktop
   // height pixel-identical to `height` while letting mobile scale up.
   const screenAspect = `${width - 20} / ${height}`;
   const screenRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = screenRef.current;
     if (!el) return;
+    if (!window.matchMedia("(max-width: 767px)").matches) return;
 
-    const coarse = window.matchMedia("(max-width: 767px)");
-    if (!coarse.matches) return;
+    // Respect users who don't want motion — leave the screen at the top. The
+    // matching CSS also drops the pin, so the layout stays consistent.
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
 
-    // Respect users who don't want motion — leave the screen at the top.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
+    const track = pinOnMobile ? trackRef.current : null;
     let frame = 0;
     let visible = false;
 
@@ -51,15 +70,25 @@ export function ScrollPhone({ src, alt, height = 560, width = 264, className = "
       const max = el.scrollHeight - el.clientHeight;
       if (max <= 0) return;
 
-      const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      // 0 when the phone is just below the fold, 1 once it has cleared the top.
-      const raw = (vh - rect.top) / (vh + rect.height);
-      // Hold at the top of the screenshot until the phone is properly in view
-      // (otherwise it starts pre-scrolled and clips the app's own header), then
-      // reveal the rest before it leaves.
-      const p = Math.min(1, Math.max(0, (raw - 0.3) / 0.55));
-      el.scrollTop = p * max;
+      let p: number;
+
+      if (track) {
+        // Progress through the pinned stretch: 0 when the track's top hits the
+        // top of the viewport, 1 when the track has been fully consumed.
+        const distance = track.offsetHeight - vh;
+        p = distance > 0 ? -track.getBoundingClientRect().top / distance : 0;
+      } else {
+        const rect = el.getBoundingClientRect();
+        // 0 when the phone is just below the fold, 1 once it has cleared the top.
+        const raw = (vh - rect.top) / (vh + rect.height);
+        // Hold at the top of the screenshot until the phone is properly in view
+        // (otherwise it starts pre-scrolled and clips the app's own header),
+        // then reveal the rest before it leaves.
+        p = (raw - 0.3) / 0.55;
+      }
+
+      el.scrollTop = Math.min(1, Math.max(0, p)) * max;
     };
 
     const onScroll = () => {
@@ -75,7 +104,7 @@ export function ScrollPhone({ src, alt, height = 560, width = 264, className = "
       },
       { rootMargin: "100px 0px" },
     );
-    io.observe(el);
+    io.observe(track ?? el);
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
@@ -86,9 +115,9 @@ export function ScrollPhone({ src, alt, height = 560, width = 264, className = "
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [pinOnMobile]);
 
-  return (
+  const frame = (
     <div
       className={`jx-scroll-phone relative mx-auto ${className}`}
       style={{ "--phone-w": `${width}px` } as React.CSSProperties}
@@ -118,6 +147,16 @@ export function ScrollPhone({ src, alt, height = 560, width = 264, className = "
           <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/20 to-transparent" />
         </div>
       </div>
+    </div>
+  );
+
+  if (!pinOnMobile) return frame;
+
+  // Both wrappers are inert above 767px and under reduced-motion (see globals.css),
+  // so the desktop DOM box model is unchanged.
+  return (
+    <div ref={trackRef} className="jx-phone-pin-track">
+      <div className="jx-phone-pin-sticky">{frame}</div>
     </div>
   );
 }

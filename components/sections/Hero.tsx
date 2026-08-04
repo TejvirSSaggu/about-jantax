@@ -11,8 +11,11 @@ export function Hero() {
   const [teamOpen, setTeamOpen] = useState(false);
   const [waitlistOpen, setWaitlistOpen] = useState(false);
 
+  // overflow-clip, not overflow-hidden: hidden establishes a scroll container,
+  // which would stop the pinned hero phone from sticking to the viewport.
+  // clip still clips the decorative glow without creating one.
   return (
-    <section className="relative overflow-hidden px-6 lg:px-12 pt-24 pb-20 lg:pt-32 lg:pb-28">
+    <section className="relative overflow-clip px-6 lg:px-12 pt-24 pb-20 lg:pt-32 lg:pb-28">
       <div
         aria-hidden
         className="absolute -top-40 -right-40 w-[640px] h-[640px] pointer-events-none"
@@ -70,8 +73,12 @@ export function Hero() {
           </FadeUp>
         </div>
 
-        {/* RIGHT — live iOS app preview (scrollable phone) */}
-        <FadeUp delay={0.3}>
+        {/* RIGHT — live iOS app preview (scrollable phone).
+            Deliberately not wrapped in FadeUp: framer-motion leaves a transform
+            on the element, which becomes the containing block for the pinned
+            phone and breaks position:sticky. It's above the fold anyway, so the
+            entrance animation bought nothing and cost LCP. */}
+        <div>
           <div className="flex flex-col items-center gap-4">
             <ScrollPhone
               src="/screens/home.png"
@@ -79,16 +86,17 @@ export function Hero() {
               height={600}
               width={288}
               priority
+              pinOnMobile
             />
-            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 flex items-center gap-2">
+            {/* Desktop only. On mobile the phone is pinned, so this label would
+                land orphaned below the pin instead of beside the device — and
+                "scroll the app" isn't true there anyway. */}
+            <div className="hidden md:flex font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-pink shadow-[0_0_8px_var(--color-pink)]" />
-              {/* On touch the screen isn't hand-scrollable — it reveals itself
-                  as the page scrolls — so don't tell people to scroll it. */}
-              <span className="md:hidden">iOS app · live</span>
-              <span className="hidden md:inline">Scroll the app · iOS live</span>
+              Scroll the app · iOS live
             </div>
           </div>
-        </FadeUp>
+        </div>
       </div>
 
       <TeamDialog open={teamOpen} onOpenChange={setTeamOpen} source="hero" />

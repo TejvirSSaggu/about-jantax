@@ -185,4 +185,41 @@ body {
     max-height: 62vh;
     touch-action: pan-y;
   }
+
+  /* Hero-only pin. The track reserves the scroll distance the pinned phone
+     consumes; 130dvh of travel on top of the 100dvh it occupies keeps the
+     stretch deliberately short so it reads as a moment, not a tunnel.
+     dvh (not vh) because Safari's collapsing URL bar changes the viewport
+     mid-scroll, which makes a vh-sized pin visibly jump. */
+  .jx-phone-pin-track {
+    position: relative;
+    height: 230dvh;
+  }
+
+  .jx-phone-pin-sticky {
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Pinned, the phone owns the screen, so it can be taller than the
+     free-scrolling ones. */
+  .jx-phone-pin-sticky .jx-phone-screen {
+    max-height: 74dvh;
+  }
+}
+
+/* No pin for reduced-motion users — the phone falls back to a normal block and
+   the JS bails, so the screenshot just sits at its first frame. */
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  .jx-phone-pin-track {
+    height: auto;
+  }
+  .jx-phone-pin-sticky {
+    position: static;
+    height: auto;
+  }
 }

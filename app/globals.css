@@ -173,4 +173,16 @@ body {
     width: 100%;
     max-width: 420px;
   }
+
+  /* On touch the frame is nearly full-bleed, so a finger landing on it would
+     scroll the screenshot and the page would appear frozen. Kill the inner
+     scroll entirely — ScrollPhone drives scrollTop from the page's own scroll
+     instead (programmatic scrolling still works under overflow:hidden).
+     Capping the height keeps the surrounding page visible, so it stays obvious
+     that the page itself scrolls. */
+  .jx-phone-screen {
+    overflow: hidden;
+    max-height: 62vh;
+    touch-action: pan-y;
+  }
 }

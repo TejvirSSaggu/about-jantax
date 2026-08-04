@@ -82,7 +82,10 @@ export function Hero() {
             />
             <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-pink shadow-[0_0_8px_var(--color-pink)]" />
-              Scroll the app · iOS live
+              {/* On touch the screen isn't hand-scrollable — it reveals itself
+                  as the page scrolls — so don't tell people to scroll it. */}
+              <span className="md:hidden">iOS app · live</span>
+              <span className="hidden md:inline">Scroll the app · iOS live</span>
             </div>
           </div>
         </FadeUp>

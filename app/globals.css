@@ -168,6 +168,12 @@ body {
   width: var(--phone-w);
 }
 
+/* Desktop: the frame's px width is authoritative and the ratio sets the height,
+   reproducing the per-instance `height` prop exactly. */
+.jx-phone-screen {
+  aspect-ratio: var(--screen-aspect);
+}
+
 @media (max-width: 767px) {
   .jx-scroll-phone {
     width: 100%;
@@ -182,8 +188,14 @@ body {
      that the page itself scrolls. */
   .jx-phone-screen {
     overflow: hidden;
-    max-height: 62vh;
     touch-action: pan-y;
+    /* Width is authoritative here — the frame is full-bleed. Keeping
+       aspect-ratio alongside a capped height made the box derive its width
+       from that height, so it shrank and left the frame's white background
+       exposed down the right-hand side. Set the height outright instead. */
+    aspect-ratio: auto;
+    width: 100%;
+    height: 62dvh;
   }
 
   /* Hero-only pin. The track reserves the scroll distance the pinned phone
@@ -194,6 +206,10 @@ body {
   .jx-phone-pin-track {
     position: relative;
     height: 230dvh;
+    /* Break out of the hero's px-6 so the pinned phone claims nearly the full
+       width — it's the hero moment, and the section padding was costing it
+       48px. Leaves a 12px gutter either side. */
+    margin-inline: -0.75rem;
   }
 
   .jx-phone-pin-sticky {
@@ -205,10 +221,15 @@ body {
     justify-content: center;
   }
 
-  /* Pinned, the phone owns the screen, so it can be taller than the
-     free-scrolling ones. */
+  /* Pinned, the phone owns the whole viewport, so it goes as large as the
+     frame and page chrome allow — 20px of frame padding plus a little breathing
+     room top and bottom. */
   .jx-phone-pin-sticky .jx-phone-screen {
-    max-height: 74dvh;
+    height: 82dvh;
+  }
+
+  .jx-phone-pin-sticky .jx-scroll-phone {
+    max-width: 100%;
   }
 }
 

@@ -120,7 +120,16 @@ export function ScrollPhone({
   const frame = (
     <div
       className={`jx-scroll-phone relative mx-auto ${className}`}
-      style={{ "--phone-w": `${width}px` } as React.CSSProperties}
+      style={
+        {
+          "--phone-w": `${width}px`,
+          // Passed as a custom property rather than an inline aspect-ratio so
+          // the mobile rules can turn it off — an inline style would outrank
+          // them, and aspect-ratio fighting a capped height shrinks the box's
+          // *width*, which left a white gutter beside the screenshot.
+          "--screen-aspect": screenAspect,
+        } as React.CSSProperties
+      }
     >
       {/* Soft brand glow behind the device. It sits inside the frame on phones —
           at full-bleed width a negative inset would push past the viewport and
@@ -132,7 +141,6 @@ export function ScrollPhone({
           <div
             ref={screenRef}
             className="jx-phone-screen overflow-y-auto overflow-x-hidden [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-black/15"
-            style={{ aspectRatio: screenAspect }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

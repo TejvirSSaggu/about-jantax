@@ -158,3 +158,19 @@ body {
     @apply font-sans;
   }
 }
+
+/* ScrollPhone device frame.
+   Desktop keeps the per-instance px width passed as --phone-w. On phones the
+   frame goes full-bleed within its column so the app screenshots are actually
+   legible; the inner scroll window is aspect-ratio driven, so its height grows
+   with the width instead of cropping more of the screen. */
+.jx-scroll-phone {
+  width: var(--phone-w);
+}
+
+@media (max-width: 767px) {
+  .jx-scroll-phone {
+    width: 100%;
+    max-width: 420px;
+  }
+}

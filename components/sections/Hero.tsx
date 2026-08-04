@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CityFeedCard } from "@/components/bento/CityFeedCard";
-import { DealCard } from "@/components/bento/DealCard";
-import { ChannelsCard } from "@/components/bento/ChannelsCard";
+import { ScrollPhone } from "@/components/ui/ScrollPhone";
 import { FadeUp } from "@/components/motion/FadeUp";
 import { FoundersDialog } from "@/components/sections/FoundersDialog";
 import { WaitlistDialog } from "@/components/sections/WaitlistDialog";
@@ -72,12 +70,20 @@ export function Hero() {
           </FadeUp>
         </div>
 
-        {/* RIGHT — PREVIEW bento */}
+        {/* RIGHT — live iOS app preview (scrollable phone) */}
         <FadeUp delay={0.3}>
-          <div className="grid grid-cols-2 grid-rows-[1.1fr_0.8fr] gap-2">
-            <CityFeedCard />
-            <DealCard />
-            <ChannelsCard />
+          <div className="flex flex-col items-center gap-4">
+            <ScrollPhone
+              src="/screens/home.png"
+              alt="JantaX iOS app — the community home feed"
+              height={600}
+              width={288}
+              priority
+            />
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-pink shadow-[0_0_8px_var(--color-pink)]" />
+              Scroll the app · iOS live
+            </div>
           </div>
         </FadeUp>
       </div>

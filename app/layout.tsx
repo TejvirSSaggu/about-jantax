@@ -36,13 +36,24 @@ export const metadata: Metadata = {
     description: "Events, deals, business profiles, and rentals — one platform for the South Asian community. Launching first in San Jose.",
     url: "https://janta-x.com",
     siteName: "JantaX",
-    images: ["/og-image.png"],
+    // JPEG, not PNG: the same card as a PNG is ~940KB, and WhatsApp and
+    // iMessage skip previews over a few hundred KB. 2400x1260 is 2x the
+    // canonical 1200x630 so it stays sharp on retina.
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 2400,
+        height: 1260,
+        alt: "JantaX — your city's South Asian community, all in one place.",
+      },
+    ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "JantaX — Your city's South Asian community, all in one place.",
     description: "Events, deals, business profiles, and rentals — one platform for the South Asian community. Launching first in San Jose.",
+    images: ["/og-image.jpg"],
   },
 };
 

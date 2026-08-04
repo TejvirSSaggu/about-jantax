@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FadeUp } from "@/components/motion/FadeUp";
-import { FoundersDialog } from "@/components/sections/FoundersDialog";
+import { TeamDialog } from "@/components/sections/TeamDialog";
 
 export function FinalCTA() {
-  const [foundersOpen, setFoundersOpen] = useState(false);
+  const [teamOpen, setTeamOpen] = useState(false);
 
   return (
     <section id="waitlist" className="px-6 lg:px-12 py-32">
@@ -33,14 +33,14 @@ export function FinalCTA() {
         <FadeUp delay={0.15}>
           <Button
             type="button"
-            onClick={() => setFoundersOpen(true)}
+            onClick={() => setTeamOpen(true)}
             className="rounded-full bg-white text-ink hover:bg-white/90 text-sm font-semibold px-8 py-3 h-auto"
           >
-            Talk to the Founders →
+            Talk to the Team →
           </Button>
         </FadeUp>
       </div>
-      <FoundersDialog open={foundersOpen} onOpenChange={setFoundersOpen} source="final-cta" />
+      <TeamDialog open={teamOpen} onOpenChange={setTeamOpen} source="final-cta" />
     </section>
   );
 }

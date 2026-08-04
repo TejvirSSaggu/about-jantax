@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { FoundersDialog } from "@/components/sections/FoundersDialog";
+import { TeamDialog } from "@/components/sections/TeamDialog";
 
 export function StickyNav() {
   const [scrolled, setScrolled] = useState(false);
-  const [foundersOpen, setFoundersOpen] = useState(false);
+  const [teamOpen, setTeamOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -34,16 +34,16 @@ export function StickyNav() {
           </div>
           <button
             type="button"
-            onClick={() => setFoundersOpen(true)}
+            onClick={() => setTeamOpen(true)}
             className={cn(
               "rounded-full bg-gradient-to-br from-pink to-[#c44d9a] hover:opacity-90 text-white text-xs font-semibold px-4 py-2 inline-flex items-center"
             )}
           >
-            Talk to founders
+            Talk to the team
           </button>
         </div>
       </nav>
-      <FoundersDialog open={foundersOpen} onOpenChange={setFoundersOpen} source="hero" />
+      <TeamDialog open={teamOpen} onOpenChange={setTeamOpen} source="hero" />
     </>
   );
 }

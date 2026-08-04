@@ -26,13 +26,13 @@ export function submitWaitlist(email: string, source: string) {
   });
 }
 
-export function submitFoundersMessage(name: string, email: string, message: string) {
+export function submitTeamMessage(name: string, email: string, message: string) {
   return post({
-    subject: "JantaX — message for founders",
+    subject: "JantaX — message for the team",
     name,
     email,
     message,
-    from_name: "JantaX founders form",
+    from_name: "JantaX contact form",
     botcheck: "",
   });
 }

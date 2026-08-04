@@ -5,7 +5,7 @@ import { PillarAudience } from "@/components/sections/PillarAudience";
 import { PillarAttendee } from "@/components/sections/PillarAttendee";
 import { PillarTicketing } from "@/components/sections/PillarTicketing";
 import { PillarPromotions } from "@/components/sections/PillarPromotions";
-import { Founders } from "@/components/sections/Founders";
+import { BuiltBy } from "@/components/sections/BuiltBy";
 import { WhyNow } from "@/components/sections/WhyNow";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
@@ -21,7 +21,7 @@ export default function Page() {
         <PillarAttendee />
         <PillarTicketing />
         <PillarPromotions />
-        <Founders />
+        <BuiltBy />
         <WhyNow />
         <FinalCTA />
       </main>

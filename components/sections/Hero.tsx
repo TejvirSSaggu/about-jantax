@@ -4,11 +4,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollPhone } from "@/components/ui/ScrollPhone";
 import { FadeUp } from "@/components/motion/FadeUp";
-import { FoundersDialog } from "@/components/sections/FoundersDialog";
+import { TeamDialog } from "@/components/sections/TeamDialog";
 import { WaitlistDialog } from "@/components/sections/WaitlistDialog";
 
 export function Hero() {
-  const [foundersOpen, setFoundersOpen] = useState(false);
+  const [teamOpen, setTeamOpen] = useState(false);
   const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   return (
@@ -53,7 +53,7 @@ export function Hero() {
             <div className="flex flex-wrap items-center gap-3">
               <Button
                 type="button"
-                onClick={() => setFoundersOpen(true)}
+                onClick={() => setTeamOpen(true)}
                 className="rounded-full bg-gradient-to-br from-pink to-[#c44d9a] hover:opacity-90 text-white text-xs font-semibold px-5"
               >
                 Get Early Access →
@@ -88,7 +88,7 @@ export function Hero() {
         </FadeUp>
       </div>
 
-      <FoundersDialog open={foundersOpen} onOpenChange={setFoundersOpen} source="hero" />
+      <TeamDialog open={teamOpen} onOpenChange={setTeamOpen} source="hero" />
       <WaitlistDialog open={waitlistOpen} onOpenChange={setWaitlistOpen} source="hero" />
     </section>
   );

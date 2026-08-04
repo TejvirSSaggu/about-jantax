@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Check } from "lucide-react";
-import { submitFoundersMessage } from "@/lib/forms";
+import { submitTeamMessage } from "@/lib/forms";
 
-export function FoundersDialog({
+export function TeamDialog({
   open,
   onOpenChange,
   source,
@@ -31,7 +31,7 @@ export function FoundersDialog({
       return;
     }
     setStatus("loading");
-    const r = await submitFoundersMessage(name, email, `[${source}] ${message}`);
+    const r = await submitTeamMessage(name, email, `[${source}] ${message}`);
     setStatus(r.ok ? "ok" : "err");
     if (r.ok) {
       setTimeout(() => {
@@ -45,7 +45,7 @@ export function FoundersDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-ink border border-white/10 text-white sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="font-display font-light text-2xl">Talk to the founders</DialogTitle>
+          <DialogTitle className="font-display font-light text-2xl">Talk to the team</DialogTitle>
           <DialogDescription className="text-white/55 text-sm">
             Pitch us your event, ask a question, or share your vision. We read every message.
           </DialogDescription>

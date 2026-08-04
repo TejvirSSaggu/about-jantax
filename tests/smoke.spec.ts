@@ -5,7 +5,7 @@ test("hero renders with coming-soon copy and CTAs", async ({ page }) => {
   await expect(page.getByText(/coming soon · san jose/i)).toBeVisible();
   await expect(page.getByRole("heading", { name: /a new way to/i })).toBeVisible();
   await expect(page.getByRole("button", { name: /join waitlist/i }).first()).toBeVisible();
-  await expect(page.getByRole("button", { name: /talk to the founders/i }).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: /talk to the team/i }).first()).toBeVisible();
 });
 
 test("PREVIEW tags appear on bento cards", async ({ page }) => {
@@ -36,10 +36,10 @@ test("waitlist accepts valid email (dry-run mode)", async ({ page }) => {
   await expect(page.getByText(/you're in/i)).toBeVisible({ timeout: 5_000 });
 });
 
-test("founders dialog opens and validates", async ({ page }) => {
+test("team dialog opens and validates", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: /talk to the founders/i }).first().click();
-  await expect(page.getByRole("heading", { name: /talk to the founders/i })).toBeVisible();
+  await page.getByRole("button", { name: /talk to the team/i }).first().click();
+  await expect(page.getByRole("heading", { name: /talk to the team/i })).toBeVisible();
   await page.getByRole("button", { name: /send message/i }).click();
   await expect(page.getByText(/please fill in all fields/i)).toBeVisible();
 });

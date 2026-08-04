@@ -173,9 +173,13 @@ body {
 }
 
 @media (max-width: 767px) {
-  /* Full-bleed within its column so the app screenshots are legible. */
+  /* Full-bleed within its column so the app screenshots are legible, but never
+     wider than the point at which the phone would grow taller than the
+     viewport comfortably allows — the width cap is derived from the same ratio
+     below, so short screens get a proportionally smaller phone rather than a
+     squashed one. */
   .jx-scroll-phone {
-    width: 100%;
+    width: min(100%, calc(88dvh * 9 / 19.5 + 20px));
     max-width: 420px;
   }
 
@@ -184,14 +188,16 @@ body {
      page appears frozen. The screenshot is framed and cropped instead — no
      inner scrolling, nothing scroll-linked.
 
-     Width is authoritative, so the aspect ratio is off and the height set
-     outright. Keeping aspect-ratio alongside a set height would make the box
-     derive its width from that height and shrink, exposing the frame's white
-     background down the right-hand side. */
+     Height comes from the width at a real handset ratio (9:19.5, an iPhone
+     screen) so the frame reads as a phone at any viewport. A fixed dvh height
+     made it 0.73 wide-to-tall — a squat box. Note this is aspect-ratio with
+     height:auto and no cap: pairing aspect-ratio with a *constrained* height
+     is what made the box derive its width from that height and shrink,
+     exposing the frame's white background down the right-hand side. */
   .jx-phone-screen {
     overflow: hidden;
-    aspect-ratio: auto;
     width: 100%;
-    height: 62dvh;
+    height: auto;
+    aspect-ratio: 9 / 19.5;
   }
 }

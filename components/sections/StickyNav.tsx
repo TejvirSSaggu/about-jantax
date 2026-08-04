@@ -6,7 +6,7 @@ import { TeamDialog } from "@/components/sections/TeamDialog";
 
 export function StickyNav() {
   const [scrolled, setScrolled] = useState(false);
-  const [teamOpen, setTeamOpen] = useState(false);
+  const [dialog, setDialog] = useState<null | "team" | "demo">(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -30,11 +30,17 @@ export function StickyNav() {
           </a>
           <div className="hidden md:flex items-center gap-8 text-xs text-white/60">
             <a href="#features" className="hover:text-white transition-colors">Features</a>
-            <a href="#demo" className="hover:text-white transition-colors">Demo</a>
+            <button
+              type="button"
+              onClick={() => setDialog("demo")}
+              className="hover:text-white transition-colors"
+            >
+              Demo
+            </button>
           </div>
           <button
             type="button"
-            onClick={() => setTeamOpen(true)}
+            onClick={() => setDialog("team")}
             className={cn(
               "rounded-full bg-gradient-to-br from-pink to-[#c44d9a] hover:opacity-90 text-white text-xs font-semibold px-4 py-2 inline-flex items-center"
             )}
@@ -43,7 +49,12 @@ export function StickyNav() {
           </button>
         </div>
       </nav>
-      <TeamDialog open={teamOpen} onOpenChange={setTeamOpen} source="hero" />
+      <TeamDialog
+        open={dialog !== null}
+        onOpenChange={(o) => setDialog(o ? dialog : null)}
+        source="nav"
+        variant={dialog === "demo" ? "demo" : "message"}
+      />
     </>
   );
 }

@@ -27,14 +27,14 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://about.jantax.com"),
+  metadataBase: new URL("https://janta-x.com"),
   title: "JantaX — Your city's South Asian community, all in one place.",
   description:
     "Discover local events, trusted businesses, exclusive deals, housing, and community opportunities — all curated for South Asians in your city. Launching first in San Jose.",
   openGraph: {
     title: "JantaX — Your city's South Asian community, all in one place.",
     description: "Events, deals, business profiles, and rentals — one platform for the South Asian community. Launching first in San Jose.",
-    url: "https://about.jantax.com",
+    url: "https://janta-x.com",
     siteName: "JantaX",
     images: ["/og-image.png"],
     type: "website",

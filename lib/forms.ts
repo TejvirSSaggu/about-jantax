@@ -26,13 +26,18 @@ export function submitWaitlist(email: string, source: string) {
   });
 }
 
-export function submitTeamMessage(name: string, email: string, message: string) {
+export function submitTeamMessage(
+  name: string,
+  email: string,
+  message: string,
+  kind: "message" | "demo" = "message",
+) {
   return post({
-    subject: "JantaX — message for the team",
+    subject: kind === "demo" ? "JantaX — demo request" : "JantaX — message for the team",
     name,
     email,
     message,
-    from_name: "JantaX contact form",
+    from_name: kind === "demo" ? "JantaX demo request" : "JantaX contact form",
     botcheck: "",
   });
 }

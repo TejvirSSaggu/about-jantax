@@ -160,145 +160,38 @@ body {
 }
 
 /* ScrollPhone device frame.
-   Desktop keeps the per-instance px width passed as --phone-w. On phones the
-   frame goes full-bleed within its column so the app screenshots are actually
-   legible; the inner scroll window is aspect-ratio driven, so its height grows
-   with the width instead of cropping more of the screen. */
+   Desktop keeps the per-instance px width passed as --phone-w and drives the
+   screen height from the aspect ratio, reproducing the `height` prop exactly.
+   The screen is a real scroll container there — drag it and the tall
+   screenshot scrolls inside the phone. */
 .jx-scroll-phone {
   width: var(--phone-w);
 }
 
-/* Desktop: the frame's px width is authoritative and the ratio sets the height,
-   reproducing the per-instance `height` prop exactly. */
 .jx-phone-screen {
   aspect-ratio: var(--screen-aspect);
 }
 
 @media (max-width: 767px) {
+  /* Full-bleed within its column so the app screenshots are legible. */
   .jx-scroll-phone {
     width: 100%;
     max-width: 420px;
   }
 
-  /* On touch the frame is nearly full-bleed, so a finger landing on it would
-     scroll the screenshot and the page would appear frozen. Kill the inner
-     scroll entirely — ScrollPhone drives scrollTop from the page's own scroll
-     instead (programmatic scrolling still works under overflow:hidden).
-     Capping the height keeps the surrounding page visible, so it stays obvious
-     that the page itself scrolls. */
+  /* Static on touch. The frame is close to full-bleed here, so an inner scroll
+     container swallows the page scroll: a finger lands on the phone and the
+     page appears frozen. The screenshot is framed and cropped instead — no
+     inner scrolling, nothing scroll-linked.
+
+     Width is authoritative, so the aspect ratio is off and the height set
+     outright. Keeping aspect-ratio alongside a set height would make the box
+     derive its width from that height and shrink, exposing the frame's white
+     background down the right-hand side. */
   .jx-phone-screen {
     overflow: hidden;
-    touch-action: pan-y;
-    /* Width is authoritative here — the frame is full-bleed. Keeping
-       aspect-ratio alongside a capped height made the box derive its width
-       from that height, so it shrank and left the frame's white background
-       exposed down the right-hand side. Set the height outright instead. */
     aspect-ratio: auto;
     width: 100%;
     height: 62dvh;
-  }
-
-  /* ── Scrubbing the screenshot ──────────────────────────────────────────
-     The screenshot is moved with a transform, never by writing scrollTop.
-     scrollTop is a main-thread paint, and a scroll listener is structurally
-     late: the compositor has already painted the new scroll position before
-     the scroll event reaches JS, so the effect always trails what the user
-     sees. transform + a scroll-driven timeline runs on the compositor — the
-     same thread that scrolls — so it can't fall behind.
-     --jx-scrub is the overflow (image height - window height), measured once
-     by ScrollPhone rather than every frame. */
-  .jx-phone-screen img {
-    will-change: transform;
-  }
-
-  @supports (animation-timeline: view()) {
-    /* Free-scrolling phones: the frame provides the timeline. Measured on the
-       frame, not the image — the image overflows its container, so its own box
-       would enter and exit the viewport at the wrong moments. */
-    .jx-scroll-phone {
-      view-timeline-name: --jx-phone;
-      view-timeline-axis: block;
-    }
-
-    .jx-phone-screen img {
-      animation: jx-scrub linear both;
-      animation-timeline: --jx-phone;
-      /* Hold at the top until the phone is properly in view, finish before it
-         leaves. */
-      animation-range: entry 90% exit 20%;
-    }
-
-    /* Pinned hero: the track is what actually travels, so it owns the
-       timeline. `contain` spans exactly the stretch where an oversized subject
-       covers the viewport — which is precisely the pinned window. */
-    .jx-phone-pin-track {
-      view-timeline-name: --jx-pin;
-      view-timeline-axis: block;
-    }
-
-    .jx-phone-pin-sticky .jx-phone-screen img {
-      animation-timeline: --jx-pin;
-      animation-range: contain 0% contain 100%;
-    }
-  }
-
-  /* Hero-only pin. The track reserves the scroll distance the pinned phone
-     consumes; 130dvh of travel on top of the 100dvh it occupies keeps the
-     stretch deliberately short so it reads as a moment, not a tunnel.
-     dvh (not vh) because Safari's collapsing URL bar changes the viewport
-     mid-scroll, which makes a vh-sized pin visibly jump. */
-  .jx-phone-pin-track {
-    position: relative;
-    height: 230dvh;
-    /* Break out of the hero's px-6 so the pinned phone claims nearly the full
-       width — it's the hero moment, and the section padding was costing it
-       48px. Leaves a 12px gutter either side. */
-    margin-inline: -0.75rem;
-  }
-
-  .jx-phone-pin-sticky {
-    position: sticky;
-    top: 0;
-    height: 100dvh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Pinned, the phone owns the whole viewport, so it goes as large as the
-     frame and page chrome allow — 20px of frame padding plus a little breathing
-     room top and bottom. */
-  .jx-phone-pin-sticky .jx-phone-screen {
-    height: 82dvh;
-  }
-
-  .jx-phone-pin-sticky .jx-scroll-phone {
-    max-width: 100%;
-  }
-}
-
-@keyframes jx-scrub {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(0, calc(-1 * var(--jx-scrub, 0px)), 0);
-  }
-}
-
-/* No pin for reduced-motion users — the phone falls back to a normal block and
-   the JS bails, so the screenshot just sits at its first frame. */
-@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
-  .jx-phone-pin-track {
-    height: auto;
-  }
-  .jx-phone-pin-sticky {
-    position: static;
-    height: auto;
-  }
-  .jx-phone-screen img {
-    animation: none;
-    transform: none;
-    will-change: auto;
   }
 }

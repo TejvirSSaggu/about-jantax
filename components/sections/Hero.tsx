@@ -73,11 +73,9 @@ export function Hero() {
           </FadeUp>
         </div>
 
-        {/* RIGHT — live iOS app preview (scrollable phone).
-            Deliberately not wrapped in FadeUp: framer-motion leaves a transform
-            on the element, which becomes the containing block for the pinned
-            phone and breaks position:sticky. It's above the fold anyway, so the
-            entrance animation bought nothing and cost LCP. */}
+        {/* RIGHT — iOS app preview. Deliberately not wrapped in FadeUp: it's
+            above the fold, so the entrance animation only delayed the LCP
+            element. */}
         <div>
           <div className="flex flex-col items-center gap-4">
             <ScrollPhone
@@ -86,7 +84,6 @@ export function Hero() {
               height={600}
               width={288}
               priority
-              pinOnMobile
             />
             {/* Desktop only. On mobile the phone is pinned, so this label would
                 land orphaned below the pin instead of beside the device — and

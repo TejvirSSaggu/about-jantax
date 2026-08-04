@@ -53,42 +53,65 @@ export function ScrollPhone({
 
   useEffect(() => {
     const el = screenRef.current;
-    if (!el) return;
+    const img = el?.querySelector("img");
+    if (!el || !img) return;
     if (!window.matchMedia("(max-width: 767px)").matches) return;
 
     // Respect users who don't want motion — leave the screen at the top. The
     // matching CSS also drops the pin, so the layout stays consistent.
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // How far the screenshot has to travel to reveal its full height. Measured
+    // on load and on resize only — never per frame, which is what made the old
+    // version thrash layout.
+    const measure = () => {
+      const distance = Math.max(0, img.getBoundingClientRect().height - el.clientHeight);
+      el.style.setProperty("--jx-scrub", `${distance}px`);
+      return distance;
+    };
+
+    measure();
+    if (!img.complete) img.addEventListener("load", measure, { once: true });
+
+    const ro = new ResizeObserver(() => measure());
+    ro.observe(el);
+    ro.observe(img);
+
+    // Where supported, the CSS scroll timeline drives the transform on the
+    // compositor and there is nothing for JS to do.
+    const nativeTimeline =
+      typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()");
+    if (nativeTimeline) return () => ro.disconnect();
+
+    // ── Fallback for browsers without scroll-driven animations ─────────────
+    // Still a transform (composited) rather than scrollTop, and layout reads
+    // are cached between scrolls so the handler stays cheap.
     const track = pinOnMobile ? trackRef.current : null;
     let frame = 0;
     let visible = false;
+    let distance = measure();
+    let geom = { top: 0, height: 0 };
+
+    const readGeometry = () => {
+      const node = track ?? el;
+      geom = {
+        top: node.getBoundingClientRect().top + window.scrollY,
+        height: node.offsetHeight,
+      };
+      distance = measure();
+    };
 
     const apply = () => {
       frame = 0;
-      const max = el.scrollHeight - el.clientHeight;
-      if (max <= 0) return;
+      if (distance <= 0) return;
 
       const vh = window.innerHeight;
-      let p: number;
+      const relative = window.scrollY - geom.top;
+      const p = track
+        ? relative / Math.max(1, geom.height - vh)
+        : (relative + vh) / (vh + geom.height) / 0.55 - 0.3 / 0.55;
 
-      if (track) {
-        // Progress through the pinned stretch: 0 when the track's top hits the
-        // top of the viewport, 1 when the track has been fully consumed.
-        const distance = track.offsetHeight - vh;
-        p = distance > 0 ? -track.getBoundingClientRect().top / distance : 0;
-      } else {
-        const rect = el.getBoundingClientRect();
-        // 0 when the phone is just below the fold, 1 once it has cleared the top.
-        const raw = (vh - rect.top) / (vh + rect.height);
-        // Hold at the top of the screenshot until the phone is properly in view
-        // (otherwise it starts pre-scrolled and clips the app's own header),
-        // then reveal the rest before it leaves.
-        p = (raw - 0.3) / 0.55;
-      }
-
-      el.scrollTop = Math.min(1, Math.max(0, p)) * max;
+      img.style.transform = `translate3d(0, ${-Math.min(1, Math.max(0, p)) * distance}px, 0)`;
     };
 
     const onScroll = () => {
@@ -96,23 +119,34 @@ export function ScrollPhone({
       frame = requestAnimationFrame(apply);
     };
 
+    const onResize = () => {
+      readGeometry();
+      apply();
+    };
+
+    readGeometry();
+
     // Only listen while the phone is anywhere near the viewport.
     const io = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
-        if (visible) apply();
+        if (visible) {
+          readGeometry();
+          apply();
+        }
       },
       { rootMargin: "100px 0px" },
     );
     io.observe(track ?? el);
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
 
     return () => {
+      ro.disconnect();
       io.disconnect();
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
       if (frame) cancelAnimationFrame(frame);
     };
   }, [pinOnMobile]);

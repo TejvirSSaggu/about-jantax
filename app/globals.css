@@ -198,6 +198,50 @@ body {
     height: 62dvh;
   }
 
+  /* ── Scrubbing the screenshot ──────────────────────────────────────────
+     The screenshot is moved with a transform, never by writing scrollTop.
+     scrollTop is a main-thread paint, and a scroll listener is structurally
+     late: the compositor has already painted the new scroll position before
+     the scroll event reaches JS, so the effect always trails what the user
+     sees. transform + a scroll-driven timeline runs on the compositor — the
+     same thread that scrolls — so it can't fall behind.
+     --jx-scrub is the overflow (image height - window height), measured once
+     by ScrollPhone rather than every frame. */
+  .jx-phone-screen img {
+    will-change: transform;
+  }
+
+  @supports (animation-timeline: view()) {
+    /* Free-scrolling phones: the frame provides the timeline. Measured on the
+       frame, not the image — the image overflows its container, so its own box
+       would enter and exit the viewport at the wrong moments. */
+    .jx-scroll-phone {
+      view-timeline-name: --jx-phone;
+      view-timeline-axis: block;
+    }
+
+    .jx-phone-screen img {
+      animation: jx-scrub linear both;
+      animation-timeline: --jx-phone;
+      /* Hold at the top until the phone is properly in view, finish before it
+         leaves. */
+      animation-range: entry 90% exit 20%;
+    }
+
+    /* Pinned hero: the track is what actually travels, so it owns the
+       timeline. `contain` spans exactly the stretch where an oversized subject
+       covers the viewport — which is precisely the pinned window. */
+    .jx-phone-pin-track {
+      view-timeline-name: --jx-pin;
+      view-timeline-axis: block;
+    }
+
+    .jx-phone-pin-sticky .jx-phone-screen img {
+      animation-timeline: --jx-pin;
+      animation-range: contain 0% contain 100%;
+    }
+  }
+
   /* Hero-only pin. The track reserves the scroll distance the pinned phone
      consumes; 130dvh of travel on top of the 100dvh it occupies keeps the
      stretch deliberately short so it reads as a moment, not a tunnel.
@@ -233,6 +277,15 @@ body {
   }
 }
 
+@keyframes jx-scrub {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, calc(-1 * var(--jx-scrub, 0px)), 0);
+  }
+}
+
 /* No pin for reduced-motion users — the phone falls back to a normal block and
    the JS bails, so the screenshot just sits at its first frame. */
 @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
@@ -242,5 +295,10 @@ body {
   .jx-phone-pin-sticky {
     position: static;
     height: auto;
+  }
+  .jx-phone-screen img {
+    animation: none;
+    transform: none;
+    will-change: auto;
   }
 }

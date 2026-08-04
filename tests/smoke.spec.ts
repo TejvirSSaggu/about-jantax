@@ -5,7 +5,7 @@ test("hero renders with launch copy and CTAs", async ({ page }) => {
   await expect(page.getByText(/launching first in san jose/i).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: /your city.s south asian community/i })).toBeVisible();
   await expect(page.getByRole("button", { name: /get early access/i })).toBeVisible();
-  await expect(page.getByRole("button", { name: /join the waitlist/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /join the waitlist/i }).first()).toBeVisible();
   await expect(page.getByRole("button", { name: /^talk to the team$/i })).toBeVisible();
 });
 
@@ -25,7 +25,7 @@ test("built-by section names no individuals", async ({ page }) => {
 
 test("waitlist dialog validates email", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: /join the waitlist/i }).click();
+  await page.getByRole("button", { name: /join the waitlist/i }).first().click();
   const dialog = page.getByRole("dialog");
   await expect(dialog.getByRole("heading", { name: /join the waitlist/i })).toBeVisible();
 
@@ -35,14 +35,14 @@ test("waitlist dialog validates email", async ({ page }) => {
 });
 
 test("waitlist accepts a valid email", async ({ page }) => {
-  // Stub the form backend. NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY is set in .env.local,
-  // so without this the test would post a real submission to the live inbox.
-  await page.route("**api.web3forms.com/**", (route) =>
+  // Stub our forms API — without this the test writes a real row to
+  // marketing_submissions and emails the team.
+  await page.route("**/api/forms", (route) =>
     route.fulfill({ status: 200, contentType: "application/json", body: '{"success":true}' }),
   );
 
   await page.goto("/");
-  await page.getByRole("button", { name: /join the waitlist/i }).click();
+  await page.getByRole("button", { name: /join the waitlist/i }).first().click();
   const dialog = page.getByRole("dialog");
   await dialog.locator("input[type=email]").fill("test@example.com");
   await dialog.getByRole("button", { name: /join waitlist/i }).click();
@@ -67,4 +67,11 @@ test("nav Demo button opens the demo request form", async ({ page }) => {
   await expect(dialog.getByPlaceholder(/organization or event/i)).toBeVisible();
   await dialog.getByRole("button", { name: /request demo/i }).click();
   await expect(page.getByText(/please fill in all fields/i)).toBeVisible();
+});
+
+test("final CTA offers both the team and waitlist actions", async ({ page }) => {
+  await page.goto("/");
+  const cta = page.locator("#waitlist");
+  await expect(cta.getByRole("button", { name: /talk to the team/i })).toBeVisible();
+  await expect(cta.getByRole("button", { name: /join the waitlist/i })).toBeVisible();
 });

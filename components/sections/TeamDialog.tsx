@@ -36,10 +36,14 @@ export function TeamDialog({
       return;
     }
     setStatus("loading");
-    const body = isDemo
-      ? `[demo · ${source}] org: ${organization.trim() || "—"} — ${message}`
-      : `[${source}] ${message}`;
-    const r = await submitTeamMessage(name, email, body, isDemo ? "demo" : "message");
+    const r = await submitTeamMessage({
+      name,
+      email,
+      message,
+      kind: isDemo ? "demo" : "message",
+      organization: organization.trim() || undefined,
+      source,
+    });
     setStatus(r.ok ? "ok" : "err");
     if (r.ok) {
       setTimeout(() => {

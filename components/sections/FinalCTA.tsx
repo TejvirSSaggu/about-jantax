@@ -4,9 +4,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FadeUp } from "@/components/motion/FadeUp";
 import { TeamDialog } from "@/components/sections/TeamDialog";
+import { WaitlistDialog } from "@/components/sections/WaitlistDialog";
 
 export function FinalCTA() {
   const [teamOpen, setTeamOpen] = useState(false);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   return (
     <section id="waitlist" className="px-6 lg:px-12 py-32">
@@ -31,16 +33,28 @@ export function FinalCTA() {
           </p>
         </FadeUp>
         <FadeUp delay={0.15}>
-          <Button
-            type="button"
-            onClick={() => setTeamOpen(true)}
-            className="rounded-full bg-white text-ink hover:bg-white/90 text-sm font-semibold px-8 py-3 h-auto"
-          >
-            Talk to the Team →
-          </Button>
+          {/* This section owns #waitlist, which the nav and hero link to, but
+              had no waitlist affordance — only the team CTA. */}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Button
+              type="button"
+              onClick={() => setTeamOpen(true)}
+              className="rounded-full bg-white text-ink hover:bg-white/90 text-sm font-semibold px-8 py-3 h-auto"
+            >
+              Talk to the Team →
+            </Button>
+            <Button
+              type="button"
+              onClick={() => setWaitlistOpen(true)}
+              className="rounded-full bg-white/10 border border-white/25 text-white hover:bg-white/20 text-sm font-semibold px-8 py-3 h-auto"
+            >
+              Join the waitlist
+            </Button>
+          </div>
         </FadeUp>
       </div>
       <TeamDialog open={teamOpen} onOpenChange={setTeamOpen} source="final-cta" />
+      <WaitlistDialog open={waitlistOpen} onOpenChange={setWaitlistOpen} source="final-cta" />
     </section>
   );
 }

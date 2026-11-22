@@ -43,8 +43,9 @@ export function Footer() {
             <a href="https://jantax.com" className="footer-link">jantax.com →</a>
           </FooterCol>
           <FooterCol title="Legal">
-            <a href="#" className="footer-link">Privacy</a>
-            <a href="#" className="footer-link">Terms</a>
+            <a href="/privacy" className="footer-link">Privacy</a>
+            <a href="/terms" className="footer-link">Terms</a>
+            <a href="/sms-terms" className="footer-link">SMS terms</a>
           </FooterCol>
         </div>
         <div className="flex gap-4 text-white/50">

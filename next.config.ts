@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   // Static HTML export → `out/`, served as plain files by Nginx on the prod
   // EC2 box (no Node server for the marketing site). See docs/static-exports.
   output: "export",
+  // /privacy must be a folder with index.html: nginx serves the export with
+  // try_files $uri $uri/ /index.html, which would otherwise hand the home
+  // page to every legal URL (the AWS SMS reviewers saw exactly that).
+  trailingSlash: true,
   // Required for `output: 'export'` if the site ever uses next/image — the
   // default image-optimization loader needs a running Node server.
   images: { unoptimized: true },

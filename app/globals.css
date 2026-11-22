@@ -201,3 +201,19 @@ body {
     aspect-ratio: 9 / 19.5;
   }
 }
+
+/* Legal pages (/privacy, /terms, /sms-terms) */
+.legal { color: rgba(240, 234, 248, 0.86); font-size: 1rem; line-height: 1.7; }
+.legal .jx-legal-meta { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em; color: rgba(240, 234, 248, 0.55); white-space: pre-wrap; margin: 0 0 2rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.legal h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.75rem; color: #fff; margin: 2.5rem 0 0.9rem; line-height: 1.15; }
+.legal p { margin: 0 0 1rem; }
+.legal ul { margin: 0 0 1rem 1.25rem; padding: 0; list-style: disc; }
+.legal li { margin: 0 0 0.5rem; }
+.legal a { color: #f0a0c0; text-decoration: underline; text-underline-offset: 3px; }
+.legal a:hover { color: #fff; }
+.legal strong { color: #fff; font-weight: 600; }
+.legal table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1.5rem; font-size: 0.9rem; }
+.legal th, .legal td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-top: 1px solid rgba(255,255,255,0.08); }
+.legal th { color: #fff; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; border-top: 0; }
+.legal td:first-child { color: #fff; font-weight: 600; }
+@media (max-width: 640px) { .legal table, .legal thead, .legal tbody, .legal tr, .legal td { display: block; } .legal thead { display: none; } .legal tr { padding: 0.75rem 0; border-top: 1px solid rgba(255,255,255,0.08); } .legal td { border: 0; padding: 0.15rem 0; } }
